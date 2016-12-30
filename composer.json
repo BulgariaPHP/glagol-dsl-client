@@ -12,6 +12,11 @@
             "email": "joan.grigorov@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Glagol\\CompileClient\\": "src/"
+        }
+    },
     "minimum-stability": "dev",
     "bin": ["bin/glagol"]
 }
