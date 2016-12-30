@@ -1,0 +1,4 @@
+#!/usr/bin/env php
+<?php
+$application = include __DIR__ . '/../src/glagol_client.php';
+$application->run();
