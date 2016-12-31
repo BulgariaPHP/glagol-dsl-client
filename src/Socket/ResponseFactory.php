@@ -8,25 +8,28 @@ class ResponseFactory
 {
     public static function create(string $raw): Response
     {
-        $rawJson = json_decode($raw, true);
+        $streams = explode(PHP_EOL, $raw);
 
-        if (!isset($rawJson['type'])) {
-            throw new RuntimeException('Response type not defined (' . $raw . ')');
-        }
+        foreach ($streams as $stream) {
+            $rawJson = json_decode(trim($stream), true);
 
-        switch (trim($rawJson['type'])) {
-            case 'info':
-                return new Response\InfoMessage($rawJson['args'][0]);
-                break;
-            case 'error':
-                return new Response\ErrorMessage($rawJson['args'][0]);
-                break;
-            case 'warning':
-                return new Response\WarningMessage($rawJson['args'][0]);
-                break;
-            case 'end':
-                return new Response\End();
-                break;
+            if (!isset($rawJson['type'])) {
+                throw new RuntimeException('Response type not defined (' . $raw . ')');
+            }
+            switch (trim($rawJson['type'])) {
+                case 'info':
+                    return new Response\InfoMessage($rawJson['args'][0]);
+                    break;
+                case 'error':
+                    return new Response\ErrorMessage($rawJson['args'][0]);
+                    break;
+                case 'warning':
+                    return new Response\WarningMessage($rawJson['args'][0]);
+                    break;
+                case 'end':
+                    return new Response\End();
+                    break;
+            }
         }
     }
 }
