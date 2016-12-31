@@ -6,6 +6,6 @@ class WarningMessage extends AbstractMessage
 {
     public function toString(): string
     {
-        return '<warning>' . parent::toString() . '</warning>';
+        return '<comment>' . parent::toString() . '</comment>';
     }
 }
