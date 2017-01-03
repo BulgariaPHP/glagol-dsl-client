@@ -3,7 +3,7 @@
     "description": "A socket-client application used to invoke Glagol DSL compiler service commands",
     "type": "project",
     "require": {
-        "symfony/console": "^3.2"
+        "symfony/console": "~3.0"
     },
     "license": "GPL-3.0",
     "authors": [
