@@ -34,6 +34,9 @@ class Client
         socket_write($this->socket, $request->toJson() . PHP_EOL, strlen($in));
 
         while ($out = socket_read($this->socket, 2048, PHP_NORMAL_READ)) {
+
+            if (empty($out)) continue;
+
             if (!$callback(ResponseFactory::create($out))) {
                 break;
             }
