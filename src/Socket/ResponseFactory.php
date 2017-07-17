@@ -19,16 +19,14 @@ class ResponseFactory
             switch (trim($rawJson['type'])) {
                 case 'info':
                     return new Response\InfoMessage($rawJson['args'][0]);
-                    break;
                 case 'error':
                     return new Response\ErrorMessage($rawJson['args'][0]);
-                    break;
                 case 'warning':
                     return new Response\WarningMessage($rawJson['args'][0]);
-                    break;
+                case 'plain_text':
+                    return new Response\PlainTextMessage($rawJson['args'][0]);
                 case 'end':
                     return new Response\End();
-                    break;
             }
         }
     }
