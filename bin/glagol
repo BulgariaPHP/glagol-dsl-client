@@ -1,4 +1,0 @@
-#!/usr/bin/env php
-<?php
-$application = include __DIR__ . '/../app/glagol.php';
-$application->run();
