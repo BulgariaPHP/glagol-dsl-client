@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: yoangrigorov/glagol-dsl-builds:latest
     working_directory: ~/repo
     environment:
       MAVEN_OPTS: -Xmx3200m
@@ -22,10 +22,8 @@ jobs:
 
       - run: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${CIRCLE_TAG}-SNAPSHOT
       - run: mvn package
-      - run: sudo apt-get -y install golang
-      - run: mkdir .go
-      - run: GOPATH="$(pwd)/.go" go get github.com/aktau/github-release
-      - run: .go/bin/github-releases -h
+      - run: if [[ ! -z ${CIRCLE_TAG} ]]; then github-release release --user bulgariaphp --repo glagol-dsl-client --tag ${CIRCLE_TAG} --name "${CIRCLE_TAG}" --description "Release ${CIRCLE_TAG}"; fi
+      - run: if [[ ! -z ${CIRCLE_TAG} ]]; then github-release upload --user bulgariaphp --repo glagol-dsl-client --tag ${CIRCLE_TAG} --name "glagol-dsl-client-${CIRCLE_TAG}.jar" --file target/glagol-dsl-client-${CIRCLE_TAG}-SNAPSHOT.jar; fi
 workflows:
   version: 2
   build-workflow:
