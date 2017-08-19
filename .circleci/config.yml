@@ -25,3 +25,11 @@ jobs:
       - run: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=SNAPSHOT
       - run: mvn package
       - run: echo ${CIRCLE_BRANCH}
+workflows:
+  version: 2
+  build-workflow:
+    jobs:
+      - build:
+          filters:
+            tags:
+              ignore: /^testing-.*/
