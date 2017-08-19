@@ -24,7 +24,8 @@ jobs:
       - run: mvn package
       - run: sudo apt-get -y install golang
       - run: mkdir .go
-      - run: export GOPATH=$(pwd)/.go && go get github.com/aktau/github-release
+      - run: export GOPATH=$(pwd)/.go
+      - run: go get github.com/aktau/github-release
       - run: .go/bin/github-releases -h
 workflows:
   version: 2
