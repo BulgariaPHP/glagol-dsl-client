@@ -22,7 +22,7 @@ jobs:
 
       - run: mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${CIRCLE_TAG}-SNAPSHOT
       - run: mvn package
-      - run: apt-get -y install golang
+      - run: sudo apt-get -y install golang
       - run: mkdir .go && export GOPATH="$(pwd)/.go"
       - run: go get github.com/aktau/github-release
       - run: github-releases -h
