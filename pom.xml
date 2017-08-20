@@ -6,7 +6,7 @@
 
     <groupId>org.bulgaria_php</groupId>
     <artifactId>glagol-dsl-client</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>dev-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>

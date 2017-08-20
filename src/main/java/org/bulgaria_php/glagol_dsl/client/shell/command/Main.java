@@ -8,7 +8,7 @@ import picocli.CommandLine.Option;
 import java.io.IOException;
 
 @Command(
-    name = "Glagol DSL Main",
+    name = "Glagol DSL Client",
     subcommands = {Compile.class},
     version = {Version.VERSION}
 )
