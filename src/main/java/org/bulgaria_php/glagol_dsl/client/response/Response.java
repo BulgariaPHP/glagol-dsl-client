@@ -1,5 +1,6 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
+import java.io.File;
 import java.io.PrintStream;
 
 public interface Response {
@@ -7,5 +8,5 @@ public interface Response {
         return false;
     }
 
-    default void handleResponse(PrintStream out, PrintStream err) {}
+    default void handleResponse(PrintStream out, PrintStream err, File projectDir) {}
 }

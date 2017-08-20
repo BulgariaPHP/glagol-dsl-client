@@ -14,7 +14,7 @@ public class CreateFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
         try {
             tryToCreateFile();
             out.println("Created file " + file.toPath().toRealPath());
@@ -29,7 +29,8 @@ public class CreateFileResponse implements Response {
         Files.createDirectories(realPath.getParent());
         Files.createFile(realPath);
 
-        BufferedWriter output = new BufferedWriter(new FileWriter(realPath.toRealPath().toFile()));
+        BufferedWriter output = new BufferedWriter(new FileWriter(file));
         output.write(contents);
+        output.flush();
     }
 }

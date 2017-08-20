@@ -15,7 +15,7 @@ public class CreateLogFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
         try {
             tryToCreateFile();
             out.println("Created log file " + file.toPath().toRealPath());

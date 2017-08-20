@@ -13,7 +13,7 @@ public class CleanResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
         try {
             tryToCleanUpOldFiles(out, err);
         } catch (IOException | ClassNotFoundException e) {

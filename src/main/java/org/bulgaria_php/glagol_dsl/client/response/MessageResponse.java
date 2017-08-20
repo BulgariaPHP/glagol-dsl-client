@@ -1,5 +1,6 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
+import java.io.File;
 import java.io.PrintStream;
 
 public class MessageResponse implements Response {
@@ -12,7 +13,7 @@ public class MessageResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
         out.println(message);
     }
 }
