@@ -7,9 +7,10 @@ import picocli.CommandLine.Option;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 
 @Command(name = "compile", description = "Compile project")
-public class Compile implements GlagolCommand {
+public class CompileCommand implements GlagolCommand {
 
     @Option(names = {"-p", "--path"}, description = "Path to the project root directory")
     private File projectDir;
@@ -18,17 +19,26 @@ public class Compile implements GlagolCommand {
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Display this help message")
     private boolean usageHelpRequested;
 
+    private final PrintStream outStream;
+
+    private final PrintStream errorStream;
+
+    public CompileCommand(PrintStream outStream, PrintStream errorStream) {
+        this.outStream = outStream;
+        this.errorStream = errorStream;
+    }
+
     /**
      * Executes compile command to the server
      *
      * @param command the client command
      */
     @Override
-    public void execute(Main command) throws IOException {
+    public void execute(MainCommand command) throws IOException {
         Client client = command.createClient();
         CompileRequest request = new CompileRequest(lookupProjectDir());
 
-        client.makeRequest(request, response -> response.report(System.out, System.err));
+        client.makeRequest(request, response -> response.report(outStream, errorStream));
     }
 
     private File lookupProjectDir() {

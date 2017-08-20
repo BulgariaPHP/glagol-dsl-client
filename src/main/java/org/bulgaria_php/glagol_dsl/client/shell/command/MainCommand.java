@@ -9,10 +9,9 @@ import java.io.IOException;
 
 @Command(
     name = "Glagol DSL Client",
-    subcommands = {Compile.class},
     version = {Version.VERSION}
 )
-public class Main implements GlagolCommand {
+public class MainCommand implements GlagolCommand {
     private static final String DEFAULT_HOST = "127.0.0.1";
     private static final Integer DEFAULT_PORT = 51151;
 
@@ -28,7 +27,7 @@ public class Main implements GlagolCommand {
     @Option(names = {"-p", "--port"}, description = "Host port on which the Glagol DSL Server is running")
     private Integer port;
 
-    public Main() {
+    public MainCommand() {
         host = lookupHost(DEFAULT_HOST);
         port = lookupPort(DEFAULT_PORT);
     }
@@ -57,7 +56,7 @@ public class Main implements GlagolCommand {
      * @param command Previously executed command
      */
     @Override
-    public void execute(Compile command) throws IOException {
+    public void execute(CompileCommand command) throws IOException {
         command.execute(this);
     }
 }

@@ -1,6 +1,8 @@
 package org.bulgaria_php.glagol_dsl.client;
 
+import org.bulgaria_php.glagol_dsl.client.shell.command.CompileCommand;
 import org.bulgaria_php.glagol_dsl.client.shell.command.GlagolCommand;
+import org.bulgaria_php.glagol_dsl.client.shell.command.MainCommand;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -11,7 +13,9 @@ public class Main {
     private GlagolCommand lastCommand;
 
     private Main(String... args) {
-        CommandLine commandLine = new CommandLine(new org.bulgaria_php.glagol_dsl.client.shell.command.Main());
+        CommandLine commandLine = new CommandLine(new MainCommand());
+        commandLine.addSubcommand("compile", new CompileCommand(System.out, System.err));
+
         List<CommandLine> commandLines = commandLine.parse(args);
 
         if (commandLines.size() == 1 && args.length == 0) {
