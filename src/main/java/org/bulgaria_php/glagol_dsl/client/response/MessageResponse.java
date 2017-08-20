@@ -13,7 +13,7 @@ public class MessageResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
         out.println(message);
     }
 }

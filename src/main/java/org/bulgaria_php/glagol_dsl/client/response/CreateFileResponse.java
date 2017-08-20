@@ -14,12 +14,18 @@ public class CreateFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
         try {
             tryToCreateFile();
-            out.println("Created file " + file.toPath().toRealPath());
+            message(out, verbose, "Created file " + file.toPath().toRealPath());
         } catch (IOException e) {
-            err.println("Could not create file " + file.getAbsolutePath() + ": " + e.getMessage());
+            message(err, verbose, "Could not create file " + file.getAbsolutePath() + ": " + e.getMessage());
+        }
+    }
+
+    private void message(PrintStream printStream, boolean verbose, String x) {
+        if (verbose) {
+            printStream.println(x);
         }
     }
 

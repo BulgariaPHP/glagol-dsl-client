@@ -15,12 +15,18 @@ public class CreateLogFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
         try {
             tryToCreateFile();
-            out.println("Created log file " + file.toPath().toRealPath());
+            message(out, verbose, "Created log file " + file.toPath().toRealPath());
         } catch (IOException e) {
-            err.println("Could not create file " + file.getAbsolutePath());
+            message(err, verbose, "Could not create file " + file.getAbsolutePath());
+        }
+    }
+
+    private void message(PrintStream printStream, boolean verbose, String x) {
+        if (verbose) {
+            printStream.println(x);
         }
     }
 

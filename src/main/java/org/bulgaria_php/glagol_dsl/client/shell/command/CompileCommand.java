@@ -19,6 +19,9 @@ public class CompileCommand implements GlagolCommand {
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Display this help message")
     private boolean usageHelpRequested;
 
+    @Option(names = {"-v", "--verbose"}, description = "Show verbose messages")
+    private boolean verbose = false;
+
     private final PrintStream outStream;
 
     private final PrintStream errorStream;
@@ -38,7 +41,7 @@ public class CompileCommand implements GlagolCommand {
         Client client = command.createClient();
         CompileRequest request = new CompileRequest(lookupProjectDir());
 
-        client.makeRequest(request, response -> response.handleResponse(outStream, errorStream, projectDir));
+        client.makeRequest(request, response -> response.handleResponse(outStream, errorStream, projectDir, verbose));
     }
 
     private File lookupProjectDir() {

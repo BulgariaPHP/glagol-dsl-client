@@ -13,15 +13,15 @@ public class CleanResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir) {
+    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
         try {
-            tryToCleanUpOldFiles(out, err);
+            tryToCleanUpOldFiles(out, err, verbose);
         } catch (IOException | ClassNotFoundException e) {
             err.println(e.getMessage());
         }
     }
 
-    private void tryToCleanUpOldFiles(PrintStream out, PrintStream err) throws IOException, ClassNotFoundException {
+    private void tryToCleanUpOldFiles(PrintStream out, PrintStream err, boolean verbose) throws IOException, ClassNotFoundException {
         if (logFile.exists()) {
             FileInputStream fileIn = new FileInputStream(logFile);
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -30,15 +30,21 @@ public class CleanResponse implements Response {
                 try {
                     File realFile = file.toPath().toRealPath().toFile();
                     realFile.delete();
-                    out.println("Deleted source file " + realFile);
+                    message(out, verbose, "Deleted source file " + realFile);
                 } catch (FileNotFoundException | NoSuchFileException e) {
-                    System.err.println("Cannot locate file " + file);
+                    message(err, verbose, "Cannot locate file " + file);
                 }
             }
             in.close();
             fileIn.close();
 
             logFile.delete();
+        }
+    }
+
+    private void message(PrintStream printStream, boolean verbose, String x) {
+        if (verbose) {
+            printStream.println(x);
         }
     }
 }

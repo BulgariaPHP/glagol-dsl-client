@@ -8,5 +8,5 @@ public interface Response {
         return false;
     }
 
-    default void handleResponse(PrintStream out, PrintStream err, File projectDir) {}
+    default void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {}
 }
