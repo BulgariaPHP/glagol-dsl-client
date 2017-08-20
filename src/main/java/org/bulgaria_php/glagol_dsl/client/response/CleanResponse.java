@@ -30,15 +30,16 @@ public class CleanResponse implements Response {
                 try {
                     File realFile = file.toPath().toRealPath().toFile();
                     realFile.delete();
-                    message(out, verbose, "Deleted source file " + realFile);
+                    message(out, verbose, "- " + realFile);
                 } catch (FileNotFoundException | NoSuchFileException e) {
-                    message(err, verbose, "Cannot locate file " + file);
+                    message(err, verbose, "Cannot locate " + file);
                 }
             }
             in.close();
             fileIn.close();
 
             logFile.delete();
+            message(out, verbose, "- " + logFile);
         }
     }
 
