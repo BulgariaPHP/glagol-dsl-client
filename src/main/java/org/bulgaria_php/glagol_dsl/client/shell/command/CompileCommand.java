@@ -38,7 +38,7 @@ public class CompileCommand implements GlagolCommand {
         Client client = command.createClient();
         CompileRequest request = new CompileRequest(lookupProjectDir());
 
-        client.makeRequest(request, response -> response.report(outStream, errorStream));
+        client.makeRequest(request, response -> response.handleResponse(outStream, errorStream));
     }
 
     private File lookupProjectDir() {

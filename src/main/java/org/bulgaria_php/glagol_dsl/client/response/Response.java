@@ -7,5 +7,5 @@ public interface Response {
         return false;
     }
 
-    default void report(PrintStream out, PrintStream err) {}
+    default void handleResponse(PrintStream out, PrintStream err) {}
 }

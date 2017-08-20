@@ -12,7 +12,7 @@ public class MessageResponse implements Response {
     }
 
     @Override
-    public void report(PrintStream out, PrintStream err) {
+    public void handleResponse(PrintStream out, PrintStream err) {
         out.println(message);
     }
 }
