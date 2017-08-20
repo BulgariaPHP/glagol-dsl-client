@@ -1,15 +1,17 @@
 package org.bulgaria_php.glagol_dsl.client.socket;
 
-import org.bulgaria_php.glagol_dsl.client.response.Response;
-import org.bulgaria_php.glagol_dsl.client.response.handler.Handler;
 import org.bulgaria_php.glagol_dsl.client.request.Request;
+import org.bulgaria_php.glagol_dsl.client.response.Response;
 import org.bulgaria_php.glagol_dsl.client.response.ResponseFactory;
+import org.bulgaria_php.glagol_dsl.client.response.handler.Handler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.json.Json;
 import javax.json.JsonStructure;
 import java.io.*;
 import java.net.Socket;
+
+import static java.util.Base64.getDecoder;
 
 public class Client {
     private final String host;
@@ -30,7 +32,8 @@ public class Client {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         for (;;) {
-            JsonStructure rawResponse = Json.createReader(new StringReader(in.readLine())).read();
+            String line = new String(getDecoder().decode(in.readLine().getBytes()));
+            JsonStructure rawResponse = Json.createReader(new StringReader(line)).read();
             Response response = responseFactory.create(rawResponse);
 
             if (response.isEnd()) {
