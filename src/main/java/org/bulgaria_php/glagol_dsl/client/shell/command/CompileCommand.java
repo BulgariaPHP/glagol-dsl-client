@@ -1,5 +1,6 @@
 package org.bulgaria_php.glagol_dsl.client.shell.command;
 
+import org.bulgaria_php.glagol_dsl.client.CompilePath;
 import org.bulgaria_php.glagol_dsl.client.request.CompileRequest;
 import org.bulgaria_php.glagol_dsl.client.socket.Client;
 import picocli.CommandLine.Command;
@@ -40,8 +41,9 @@ public class CompileCommand implements GlagolCommand {
     public void execute(MainCommand command) throws IOException {
         Client client = command.createClient();
         CompileRequest request = new CompileRequest(lookupProjectDir());
+        CompilePath compilePath = new CompilePath(projectDir);
 
-        client.makeRequest(request, response -> response.handleResponse(outStream, errorStream, projectDir, verbose));
+        client.makeRequest(request, response -> response.handleResponse(outStream, errorStream, compilePath, verbose));
     }
 
     private File lookupProjectDir() {

@@ -1,13 +1,15 @@
 package org.bulgaria_php.glagol_dsl.client.request;
 
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,17 +37,27 @@ public class CompileRequest implements Request {
     private JsonObject getJson() {
         return Json.createObjectBuilder()
                 .add("command", "compile")
-                .add("path", projectDir.toURI().getRawPath())
-                .add("files", lookupExistingFiles())
+                .add("sources", collectSources())
                 .build();
     }
 
-    private JsonArray lookupExistingFiles() {
-        JsonArrayBuilder builder = Json.createArrayBuilder();
+    private JsonObject collectSources() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        scanProjectDir().forEach(file -> builder.add(file.getAbsolutePath()));
+        scanProjectDir().forEach(file -> {
+            if (file.exists()) {
+                try {
+                    builder.add(toRelativePath(file), new String(Files.readAllBytes(file.toPath())));
+                } catch (IOException ignored) {}
+            }
+        });
 
         return builder.build();
+    }
+
+    @NotNull
+    private String toRelativePath(File file) {
+        return file.getAbsolutePath().replace(projectDir.getAbsolutePath(), "");
     }
 
     private List<File> scanProjectDir() {

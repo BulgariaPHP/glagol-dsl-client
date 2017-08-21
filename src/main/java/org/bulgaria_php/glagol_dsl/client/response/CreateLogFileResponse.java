@@ -1,42 +1,25 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.bulgaria_php.glagol_dsl.client.CompilePath;
+
+import java.io.File;
+import java.io.PrintStream;
 import java.util.List;
 
 public class CreateLogFileResponse implements Response {
-    private final File file;
-    private final List<File> logFileContents;
+    static final String GLAGOL_COMPILE_LOG = ".glagol_compile_log";
 
-    CreateLogFileResponse(File file, List<File> logFileContents) {
-        this.file = file;
+    private final List<File> logFileContents;
+    private final File file;
+
+    CreateLogFileResponse(List<File> logFileContents) {
         this.logFileContents = logFileContents;
+        file = new File(GLAGOL_COMPILE_LOG);
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
-        try {
-            tryToCreateFile();
-            message(out, verbose, "+ " + file.toPath().toRealPath());
-        } catch (IOException e) {
-            message(err, verbose, "Could not create file " + file.getAbsolutePath());
-        }
-    }
-
-    private void message(PrintStream printStream, boolean verbose, String x) {
-        if (verbose) {
-            printStream.println(x);
-        }
-    }
-
-    private void tryToCreateFile() throws IOException {
-        Path realPath = file.toPath();
-
-        Files.createDirectories(realPath.getParent());
-        Files.createFile(realPath);
-
-        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(realPath.toFile()));
-        output.writeObject(logFileContents);
+    public void handleResponse(PrintStream out, PrintStream err, CompilePath compilePath, boolean verbose) {
+        compilePath.safeWriteObjectFile(file, logFileContents);
+        log(out, verbose, "+ " + file);
     }
 }

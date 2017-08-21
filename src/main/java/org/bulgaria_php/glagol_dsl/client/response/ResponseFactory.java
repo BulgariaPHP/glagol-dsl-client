@@ -15,11 +15,11 @@ public class ResponseFactory {
 
         switch (typeNode.getString()) {
             case "clean":
-                return new CleanResponse(getFile(jsonStructure));
+                return new CleanResponse();
             case "create":
                 return new CreateFileResponse(getFile(jsonStructure), getContents(jsonStructure));
             case "create_log":
-                return new CreateLogFileResponse(getFile(jsonStructure), getLogFileContents(jsonStructure));
+                return new CreateLogFileResponse(getLogFileContents(jsonStructure));
             case "end":
                 return new EndResponse();
         }

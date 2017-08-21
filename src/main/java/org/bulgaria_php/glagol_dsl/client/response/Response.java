@@ -1,6 +1,7 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
-import java.io.File;
+import org.bulgaria_php.glagol_dsl.client.CompilePath;
+
 import java.io.PrintStream;
 
 public interface Response {
@@ -8,5 +9,11 @@ public interface Response {
         return false;
     }
 
-    default void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {}
+    default void handleResponse(PrintStream out, PrintStream err, CompilePath compilePath, boolean verbose) {}
+
+    default void log(PrintStream printStream, boolean verbose, String x) {
+        if (verbose) {
+            printStream.println(x);
+        }
+    }
 }

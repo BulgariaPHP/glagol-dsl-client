@@ -1,8 +1,10 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import org.bulgaria_php.glagol_dsl.client.CompilePath;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 
 public class CreateFileResponse implements Response {
     private final File file;
@@ -14,29 +16,8 @@ public class CreateFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, File projectDir, boolean verbose) {
-        try {
-            tryToCreateFile();
-            message(out, verbose, "+ " + file.toPath().toRealPath());
-        } catch (IOException e) {
-            message(err, verbose, "Could not create file " + file.getAbsolutePath() + ": " + e.getMessage());
-        }
-    }
-
-    private void message(PrintStream printStream, boolean verbose, String x) {
-        if (verbose) {
-            printStream.println(x);
-        }
-    }
-
-    private void tryToCreateFile() throws IOException {
-        Path realPath = file.toPath();
-
-        Files.createDirectories(realPath.getParent());
-        Files.createFile(realPath);
-
-        BufferedWriter output = new BufferedWriter(new FileWriter(file));
-        output.write(contents);
-        output.flush();
+    public void handleResponse(PrintStream out, PrintStream err, CompilePath compilePath, boolean verbose) {
+        compilePath.safeWriteFile(file, contents);
+        log(out, verbose, "+ " + file);
     }
 }
