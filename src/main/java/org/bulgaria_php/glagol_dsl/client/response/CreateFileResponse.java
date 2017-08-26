@@ -1,10 +1,10 @@
 package org.bulgaria_php.glagol_dsl.client.response;
 
 import org.bulgaria_php.glagol_dsl.client.CompilePath;
+import org.bulgaria_php.glagol_dsl.client.ConsoleStream;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 
 public class CreateFileResponse implements Response {
     private final File file;
@@ -16,8 +16,8 @@ public class CreateFileResponse implements Response {
     }
 
     @Override
-    public void handleResponse(PrintStream out, PrintStream err, CompilePath compilePath, boolean verbose) {
+    public void handleResponse(CompilePath compilePath, ConsoleStream consoleStream, boolean showVerbose) {
         compilePath.safeWriteFile(file, contents);
-        log(out, verbose, "+ " + file);
+        consoleStream.println("+ " + file, showVerbose);
     }
 }

@@ -1,20 +1,21 @@
 package org.bulgaria_php.glagol_dsl.client;
 
+import org.bulgaria_php.glagol_dsl.client.shell.command.CleanCommand;
+import org.bulgaria_php.glagol_dsl.client.shell.command.Command;
 import org.bulgaria_php.glagol_dsl.client.shell.command.CompileCommand;
-import org.bulgaria_php.glagol_dsl.client.shell.command.GlagolCommand;
 import org.bulgaria_php.glagol_dsl.client.shell.command.MainCommand;
 import picocli.CommandLine;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Main {
 
-    private GlagolCommand lastCommand;
+    private Command lastCommand;
 
     private Main(String... args) {
         CommandLine commandLine = new CommandLine(new MainCommand());
-        commandLine.addSubcommand("compile", new CompileCommand(System.out, System.err));
+        commandLine.addSubcommand("compile", new CompileCommand());
+        commandLine.addSubcommand("clean", new CleanCommand());
 
         List<CommandLine> commandLines = commandLine.parse(args);
 
@@ -41,11 +42,11 @@ public class Main {
             System.exit(0);
         }
 
-        GlagolCommand command = (GlagolCommand) commandLine.getCommand();
+        Command command = (Command) commandLine.getCommand();
 
         try {
-            command.execute(lastCommand);
-        } catch (IOException e) {
+            command.execute(lastCommand, new ConsoleStream(System.out));
+        } catch (Throwable e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

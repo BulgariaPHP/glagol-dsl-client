@@ -1,18 +1,20 @@
 package org.bulgaria_php.glagol_dsl.client.shell.command;
 
+import org.bulgaria_php.glagol_dsl.client.ConsoleStream;
 import org.bulgaria_php.glagol_dsl.client.Version;
 import org.bulgaria_php.glagol_dsl.client.socket.Client;
-import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 import java.io.IOException;
 
-@Command(
+@picocli.CommandLine.Command(
     name = "Glagol DSL Client",
     version = {Version.VERSION}
 )
-public class MainCommand implements GlagolCommand {
+public class MainCommand implements Command {
+
     private static final String DEFAULT_HOST = "127.0.0.1";
+
     private static final Integer DEFAULT_PORT = 51151;
 
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "Display this help message")
@@ -56,7 +58,16 @@ public class MainCommand implements GlagolCommand {
      * @param command Previously executed command
      */
     @Override
-    public void execute(CompileCommand command) throws IOException {
-        command.execute(this);
+    public void execute(CompileCommand command, ConsoleStream consoleStream) throws IOException {
+        command.execute(this, consoleStream);
+    }
+    /**
+     * This method is only used for double-dispatching
+     *
+     * @param command Previously executed command
+     */
+    @Override
+    public void execute(CleanCommand command, ConsoleStream consoleStream) throws IOException {
+        command.execute(this, consoleStream);
     }
 }
