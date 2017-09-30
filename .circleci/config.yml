@@ -29,11 +29,11 @@ jobs:
             docker build -t glagol/client:${TAG} -t glagol/client:latest docker/
             docker login -u ${DOCKER_ID} -p ${DOCKER_SECRET}
             docker push glagol/client:${TAG}
-            docker push glagol/client:latest
             if [[ ! -z ${CIRCLE_TAG} ]]; then \
               TAG=${TAG:0:3}; \
               docker build -t glagol/client:${TAG} docker/ ; \
               docker push glagol/client:${TAG}; \
+              docker push glagol/client:latest; \
             fi
       - save_cache:
           paths:
