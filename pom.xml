@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.bulgaria_php</groupId>
+    <groupId>org.glagol-dsl</groupId>
     <artifactId>glagol-dsl-client</artifactId>
     <version>dev-SNAPSHOT</version>
     <build>
@@ -16,7 +16,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.bulgaria_php.glagol_dsl.client.Main</mainClass>
+                            <mainClass>org.glagol_dsl.client.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
