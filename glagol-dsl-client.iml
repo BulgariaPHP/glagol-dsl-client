@@ -14,8 +14,19 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: info.picocli:picocli:0.9.8" level="project" />
+    <orderEntry type="library" name="Maven: info.picocli:picocli:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.54" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.core:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.jsch:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.sshagent:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.connector-factory:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.usocket-jna:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.usocket-nc:0.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch.agentproxy.pageant:0.0.9" level="project" />
   </component>
 </module>

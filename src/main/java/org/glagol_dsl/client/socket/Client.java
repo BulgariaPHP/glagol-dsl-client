@@ -14,6 +14,7 @@ import java.net.Socket;
 import static java.util.Base64.getDecoder;
 
 public class Client {
+
     private final String host;
     private final Integer port;
 
@@ -25,6 +26,7 @@ public class Client {
     }
 
     public void makeRequest(Request request, Handler responseHandler) throws IOException {
+
         Socket socket = createSocket();
 
         request.sendTo(new PrintWriter(socket.getOutputStream(), true));
