@@ -20,7 +20,7 @@ import java.io.IOException;
 )
 public class MainCommand implements Command {
 
-    private static final String DEFAULT_HOST = "35.204.215.192";
+    private static final String DEFAULT_HOST = "glagol.io";
     private static final Integer DEFAULT_PORT = 51151;
 
     private static final String TUNNEL_REMOTE_HOST = "glagol-server-svc.default.svc.cluster.local";
