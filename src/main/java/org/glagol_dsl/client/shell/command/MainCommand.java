@@ -49,11 +49,19 @@ public class MainCommand implements Command {
     }
 
     private String lookupHost(String defaultValue) {
+        if (host != null) {
+            return host;
+        }
+
         String value = System.getenv("GLAGOL_DSL_HOST");
         return isEmpty(value) ? defaultValue : value;
     }
 
     private Integer lookupPort(Integer defaultValue) {
+        if (port != null) {
+            return port;
+        }
+
         String value = System.getenv("GLAGOL_DSL_PORT");
         return isEmpty(value) ? defaultValue : Integer.valueOf(value);
     }
