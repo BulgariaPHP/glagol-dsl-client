@@ -20,7 +20,7 @@ import java.io.IOException;
 )
 public class MainCommand implements Command {
 
-    private static final String DEFAULT_HOST = "glagol.io";
+    private static final String DEFAULT_HOST = "localhost";
     private static final Integer DEFAULT_PORT = 51151;
 
     private static final String TUNNEL_REMOTE_HOST = "glagol-server-svc.default.svc.cluster.local";
@@ -67,7 +67,7 @@ public class MainCommand implements Command {
     }
 
     Client createClient() {
-        return new Client(suspendAuth ? lookupHost("localhost") : "localhost", port);
+        return new Client(suspendAuth ? lookupHost(DEFAULT_HOST) : DEFAULT_HOST, port);
     }
 
     private boolean isEmpty(String host) {
